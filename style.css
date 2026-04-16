@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
   padding: 16px;
 }
@@ -30,6 +30,7 @@ header {
 label {
   display: block;
   margin: 10px 0 5px;
+  font-weight: 600;
 }
 
 input,
@@ -59,19 +60,53 @@ button.secondary {
 
 .entry-item {
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
-  margin-top: 10px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  background: #fff;
+}
+
+.entry-item h3 {
+  margin-top: 0;
 }
 
 .entry-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .entry-buttons button {
   margin-bottom: 0;
+}
+
+.section-group {
+  margin-top: 14px;
+}
+
+.section-group h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-block;
+  background: #ecebff;
+  color: #3f37c9;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.member-list {
+  margin: 0;
+  padding-left: 18px;
 }
 
 .hidden {
