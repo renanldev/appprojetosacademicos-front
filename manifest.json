@@ -1,11 +1,11 @@
 {
-  "name": "Diário Pet",
-  "short_name": "PetDiary",
+  "name": "Projetos Acadêmicos",
+  "short_name": "Projetos",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f5f7fb",
   "theme_color": "#4f46e5",
-  "description": "Aplicativo para registrar acontecimentos do seu pet.",
+  "description": "Aplicativo para visualizar e cadastrar projetos desenvolvidos na faculdade.",
   "icons": [
     {
       "src": "icons/icon-192.png",
