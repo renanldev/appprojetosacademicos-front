@@ -1,11 +1,15 @@
-const API_URL = 'http://localhost:3000/api/entries';
+const API_URL = 'https://app-pet-aulacoding-backend.onrender.com/api/projects';
 
-const form = document.getElementById('entry-form');
-const entryId = document.getElementById('entry-id');
+const form = document.getElementById('project-form');
+const projectId = document.getElementById('project-id');
 const title = document.getElementById('title');
 const description = document.getElementById('description');
-const happenedAt = document.getElementById('happenedAt');
-const entriesList = document.getElementById('entries-list');
+const technologies = document.getElementById('technologies');
+const softSkills = document.getElementById('softSkills');
+const professor = document.getElementById('professor');
+const semester = document.getElementById('semester');
+const teamMembers = document.getElementById('teamMembers');
+const projectsList = document.getElementById('projects-list');
 const message = document.getElementById('message');
 const cancelEdit = document.getElementById('cancel-edit');
 const formTitle = document.getElementById('form-title');
@@ -17,40 +21,88 @@ function showMessage(text) {
 
 function clearForm() {
   form.reset();
-  entryId.value = '';
-  formTitle.textContent = 'Novo registro';
+  projectId.value = '';
+  formTitle.textContent = 'Novo projeto';
   cancelEdit.classList.add('hidden');
-  happenedAt.value = new Date().toISOString().slice(0, 16);
 }
 
-function formatDate(date) {
-  return new Date(date).toLocaleString('pt-BR');
+function parseList(value) {
+  return value
+    .split(',')
+    .map(item => item.trim())
+    .filter(item => item);
 }
 
-async function loadEntries() {
+function parseTeamMembers(value) {
+  return value
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line)
+    .map(line => {
+      const parts = line.split('-');
+      return {
+        name: (parts[0] || '').trim(),
+        role: (parts[1] || '').trim()
+      };
+    })
+    .filter(member => member.name && member.role);
+}
+
+function teamMembersToText(members) {
+  return members.map(member => `${member.name} - ${member.role}`).join('\n');
+}
+
+function renderTags(items) {
+  return items.map(item => `<span class="tag">${item}</span>`).join('');
+}
+
+function renderTeamMembers(members) {
+  return members
+    .map(member => `<li><strong>${member.name}</strong> — ${member.role}</li>`)
+    .join('');
+}
+
+async function loadProjects() {
   const response = await fetch(API_URL);
-  const entries = await response.json();
+  const projects = await response.json();
 
-  if (!entries.length) {
-    entriesList.innerHTML = '<p>Nenhum registro encontrado.</p>';
+  if (!projects.length) {
+    projectsList.innerHTML = '<p>Nenhum projeto encontrado.</p>';
     return;
   }
 
-  entriesList.innerHTML = entries.map(entry => `
+  projectsList.innerHTML = projects.map(project => `
     <div class="entry-item">
-      <h3>${entry.title}</h3>
-      <p>${formatDate(entry.happenedAt)}</p>
-      <p>${entry.description}</p>
+      <h3>${project.title}</h3>
+      <p>${project.description}</p>
+      <p><strong>Professor:</strong> ${project.professor}</p>
+      <p><strong>Período:</strong> ${project.semester}</p>
+
+      <div class="section-group">
+        <h4>Tecnologias</h4>
+        <div class="tags">${renderTags(project.technologies || [])}</div>
+      </div>
+
+      <div class="section-group">
+        <h4>Soft skills</h4>
+        <div class="tags">${renderTags(project.softSkills || [])}</div>
+      </div>
+
+      <div class="section-group">
+        <h4>Integrantes</h4>
+        <ul class="member-list">${renderTeamMembers(project.teamMembers || [])}</ul>
+      </div>
+
       <div class="entry-buttons">
-        <button onclick="editEntry('${entry._id}')">Editar</button>
-        <button onclick="deleteEntry('${entry._id}')">Excluir</button>
+        <button onclick="editProject('${project._id}')">Editar</button>
+        <button onclick="deleteProject('${project._id}')">Excluir</button>
       </div>
     </div>
   `).join('');
 }
 
-async function saveEntry(data) {
-  const id = entryId.value;
+async function saveProject(data) {
+  const id = projectId.value;
   const url = id ? `${API_URL}/${id}` : API_URL;
   const method = id ? 'PUT' : 'POST';
 
@@ -61,41 +113,49 @@ async function saveEntry(data) {
   });
 }
 
-window.editEntry = async function (id) {
+window.editProject = async function (id) {
   const response = await fetch(`${API_URL}/${id}`);
-  const entry = await response.json();
+  const project = await response.json();
 
-  entryId.value = entry._id;
-  title.value = entry.title;
-  description.value = entry.description;
-  happenedAt.value = new Date(entry.happenedAt).toISOString().slice(0, 16);
+  projectId.value = project._id;
+  title.value = project.title || '';
+  description.value = project.description || '';
+  technologies.value = (project.technologies || []).join(', ');
+  softSkills.value = (project.softSkills || []).join(', ');
+  professor.value = project.professor || '';
+  semester.value = project.semester || '';
+  teamMembers.value = teamMembersToText(project.teamMembers || []);
 
-  formTitle.textContent = 'Editar registro';
+  formTitle.textContent = 'Editar projeto';
   cancelEdit.classList.remove('hidden');
-  showMessage('Editando registro.');
+  showMessage('Editando projeto.');
 };
 
-window.deleteEntry = async function (id) {
-  if (!confirm('Deseja excluir este registro?')) return;
+window.deleteProject = async function (id) {
+  if (!confirm('Deseja excluir este projeto?')) return;
 
   await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-  showMessage('Registro excluído.');
-  loadEntries();
+  showMessage('Projeto excluído.');
+  loadProjects();
 };
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const data = {
-    title: title.value,
-    description: description.value,
-    happenedAt: happenedAt.value
+    title: title.value.trim(),
+    description: description.value.trim(),
+    technologies: parseList(technologies.value),
+    softSkills: parseList(softSkills.value),
+    professor: professor.value.trim(),
+    semester: semester.value.trim(),
+    teamMembers: parseTeamMembers(teamMembers.value)
   };
 
-  await saveEntry(data);
-  showMessage(entryId.value ? 'Registro atualizado.' : 'Registro criado.');
+  await saveProject(data);
+  showMessage(projectId.value ? 'Projeto atualizado.' : 'Projeto criado.');
   clearForm();
-  loadEntries();
+  loadProjects();
 });
 
 cancelEdit.addEventListener('click', () => {
@@ -103,7 +163,7 @@ cancelEdit.addEventListener('click', () => {
   showMessage('Edição cancelada.');
 });
 
-reloadBtn.addEventListener('click', loadEntries);
+reloadBtn.addEventListener('click', loadProjects);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
@@ -117,4 +177,4 @@ if ('serviceWorker' in navigator) {
 }
 
 clearForm();
-loadEntries();
+loadProjects();
