@@ -1,94 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#4f46e5" />
+  <meta name="theme-color" content="#3f51b5" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/icon-192.png" />
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
   <link rel="stylesheet" href="style.css" />
-  <title>Projetos Acadêmicos</title>
+  <title>Arquivo de Projetos Acadêmicos</title>
 </head>
+<body>
+  <div class="page-noise"></div>
 
-<body class="bg-light">
-  <div class="container py-4">
-    <header class="text-center mb-4">
-      <h1 class="mb-2">Projetos Acadêmicos</h1>
-      <p class="text-muted">Visualize e cadastre projetos desenvolvidos na faculdade</p>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-tag">design · tecnologia · academia</div>
+      <h1>Arquivo de Projetos Acadêmicos</h1>
+      <p>
+        Um espaço para registrar, organizar e apresentar os projetos desenvolvidos na faculdade
+        com contexto acadêmico, stack utilizada, equipe e mídia demonstrativa.
+      </p>
     </header>
 
-    <section class="card shadow-sm mb-4">
-      <div class="card-body">
-        <h2 id="form-title" class="h4 mb-3">Novo projeto</h2>
+    <main class="workspace">
+      <section class="panel form-panel">
+        <div class="panel-header">
+          <div>
+            <span class="eyebrow">cadastro</span>
+            <h2 id="form-title">Novo projeto</h2>
+          </div>
+        </div>
 
-        <form id="project-form">
+        <form id="project-form" class="project-form">
           <input type="hidden" id="project-id" />
 
-          <div class="mb-3">
-            <label for="title" class="form-label">Título do projeto</label>
-            <input type="text" id="title" class="form-control" required />
-          </div>
+          <details class="accordion" open>
+            <summary>
+              <span>Identificação do projeto</span>
+            </summary>
 
-          <div class="mb-3">
-            <label for="description" class="form-label">Descrição</label>
-            <textarea id="description" rows="4" class="form-control" required></textarea>
-          </div>
+            <div class="accordion-content form-grid">
+              <div class="field field-full">
+                <label for="title">Título</label>
+                <input type="text" id="title" placeholder="Ex: Plataforma Prisma" required />
+              </div>
 
-          <div class="mb-3">
-            <label for="technologies" class="form-label">Tecnologias utilizadas</label>
-            <input type="text" id="technologies" class="form-control" placeholder="Ex: HTML, CSS, JavaScript, MongoDB" required />
-          </div>
+              <div class="field">
+                <label for="discipline">Disciplina</label>
+                <input type="text" id="discipline" placeholder="Ex: Projeto Integrador" required />
+              </div>
 
-          <div class="mb-3">
-            <label for="softSkills" class="form-label">Soft skills desenvolvidas</label>
-            <input type="text" id="softSkills" class="form-control" placeholder="Ex: Trabalho em equipe, Comunicação, Organização" required />
-          </div>
+              <div class="field">
+                <label for="professor">Professor que propôs o desafio</label>
+                <input type="text" id="professor" placeholder="Nome do professor" required />
+              </div>
 
-          <div class="mb-3">
-            <label for="professor" class="form-label">Professor responsável</label>
-            <input type="text" id="professor" class="form-control" required />
-          </div>
+              <div class="field field-full">
+                <label for="description">Descrição</label>
+                <textarea id="description" rows="5" placeholder="Descreva o objetivo do projeto, o problema e a solução." required></textarea>
+              </div>
+            </div>
+          </details>
 
-          <div class="mb-3">
-            <label for="semester" class="form-label">Período / semestre</label>
-            <input type="text" id="semester" class="form-control" placeholder="Ex: 3º período / 2026.1" required />
-          </div>
+          <details class="accordion" open>
+            <summary>
+              <span>Período acadêmico</span>
+            </summary>
 
-          <div class="mb-3">
-            <label for="teamMembers" class="form-label">Integrantes e funções</label>
-            <textarea id="teamMembers" rows="5" class="form-control" placeholder="Ex:
+            <div class="accordion-content">
+              <div class="period-accordion">
+                <label class="period-card">
+                  <input type="radio" name="period" value="1" />
+                  <span class="period-card-top">1º período</span>
+                  <span class="period-card-bottom">fundamentos</span>
+                </label>
+
+                <label class="period-card">
+                  <input type="radio" name="period" value="2" />
+                  <span class="period-card-top">2º período</span>
+                  <span class="period-card-bottom">evolução</span>
+                </label>
+
+                <label class="period-card">
+                  <input type="radio" name="period" value="3" />
+                  <span class="period-card-top">3º período</span>
+                  <span class="period-card-bottom">integração</span>
+                </label>
+
+                <label class="period-card">
+                  <input type="radio" name="period" value="4" />
+                  <span class="period-card-top">4º período</span>
+                  <span class="period-card-bottom">aplicação</span>
+                </label>
+
+                <label class="period-card">
+                  <input type="radio" name="period" value="5" />
+                  <span class="period-card-top">5º período</span>
+                  <span class="period-card-bottom">consolidação</span>
+                </label>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion" open>
+            <summary>
+              <span>Stack e habilidades</span>
+            </summary>
+
+            <div class="accordion-content form-grid">
+              <div class="field field-full">
+                <label for="technologies">Tecnologias utilizadas</label>
+                <input
+                  type="text"
+                  id="technologies"
+                  placeholder="Ex: HTML, CSS, JavaScript, Node.js, MongoDB"
+                  required
+                />
+                <small>Separe por vírgula</small>
+              </div>
+
+              <div class="field field-full">
+                <label for="softSkills">Soft skills desenvolvidas</label>
+                <input
+                  type="text"
+                  id="softSkills"
+                  placeholder="Ex: Comunicação, Organização, Trabalho em equipe"
+                  required
+                />
+                <small>Separe por vírgula</small>
+              </div>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>
+              <span>Equipe / autoria</span>
+            </summary>
+
+            <div class="accordion-content form-grid">
+              <div class="field field-full">
+                <label for="teamMembers">Integrantes e funções</label>
+                <textarea
+                  id="teamMembers"
+                  rows="6"
+                  placeholder="Ex:
 Vitória - Front-end
 Renan - Back-end
-Lucas - Banco de Dados" required></textarea>
-          </div>
+Lucas - Banco de Dados"
+                  required
+                ></textarea>
+                <small>Use uma linha por integrante, no formato Nome - Função</small>
+              </div>
+            </div>
+          </details>
 
-          <div class="d-flex gap-2 flex-wrap">
-            <button type="submit" class="btn btn-primary">Salvar</button>
+          <details class="accordion">
+            <summary>
+              <span>Mídia do projeto</span>
+            </summary>
+
+            <div class="accordion-content form-grid">
+              <div class="field">
+                <label for="coverImage">Capa do projeto</label>
+                <input type="file" id="coverImage" accept="image/*" />
+                <small>PNG, JPG ou WEBP</small>
+              </div>
+
+              <div class="field">
+                <label for="demoVideo">Vídeo demonstrativo</label>
+                <input type="file" id="demoVideo" accept="video/*" />
+                <small>MP4, WEBM ou MOV</small>
+              </div>
+
+              <div class="field">
+                <label>Prévia da capa</label>
+                <div id="image-preview" class="media-preview"></div>
+              </div>
+
+              <div class="field">
+                <label>Prévia do vídeo</label>
+                <div id="video-preview" class="media-preview"></div>
+              </div>
+            </div>
+          </details>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Salvar projeto</button>
             <button type="button" id="cancel-edit" class="btn btn-secondary hidden">Cancelar edição</button>
           </div>
         </form>
 
-        <p id="message" class="mt-3 mb-0"></p>
-      </div>
-    </section>
+        <p id="message" class="status-message"></p>
+      </section>
 
-    <section class="card shadow-sm">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-          <h2 class="h4 mb-0">Projetos cadastrados</h2>
-          <button id="reload-btn" class="btn btn-outline-secondary">Atualizar</button>
+      <section class="panel list-panel">
+        <div class="panel-header panel-header-row">
+          <div>
+            <span class="eyebrow">acervo</span>
+            <h2>Projetos cadastrados</h2>
+          </div>
+
+          <button id="reload-btn" class="btn btn-outline">Atualizar</button>
         </div>
 
-        <div id="projects-list"></div>
-      </div>
-    </section>
+        <div id="projects-list" class="projects-list"></div>
+      </section>
+    </main>
   </div>
 
   <script src="app.js"></script>
 </body>
-
 </html>
