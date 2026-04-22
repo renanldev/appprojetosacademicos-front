@@ -276,9 +276,9 @@ loadProjects();
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    // O caminho deve ser relativo à raiz do seu repositório no GitHub
-    navigator.serviceWorker.register('./sw.js')
+    // Usar o caminho relativo garante que o GitHub Pages encontre o arquivo na subpasta
+    navigator.serviceWorker.register('sw.js')
       .then(reg => console.log('Service Worker registrado!', reg))
       .catch(err => console.error('Erro ao registrar Service Worker:', err));
   });
-}
+} 
