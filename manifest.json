@@ -8,12 +8,12 @@
   "description": "Aplicativo para visualizar e cadastrar projetos desenvolvidos na faculdade.",
   "icons": [
     {
-      "src": "frontend/icons/favicon.ico",
+      "src": "frontend/icons/logoprojetosacad.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "frontend/icons/favicon.ico",
+      "src": "frontend/icons/logoprojetosacad.png",
       "sizes": "512x512",
       "type": "image/png"
     }
