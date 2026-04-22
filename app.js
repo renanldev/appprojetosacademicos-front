@@ -143,34 +143,27 @@ async function loadProjects() {
     }
 
     projectsList.innerHTML = projects.map(project => `
-      <div class="entry-item">
-        ${project.coverImage ? `<img src="${project.coverImage}" alt="Capa do projeto ${escapeHtml(project.title)}" class="project-cover">` : ''}
+<div class="entry-item">
+  ${project.coverImage ? `<img src="${project.coverImage}" class="project-cover">` : ''}
+  
+  <h3>${escapeHtml(project.title)}</h3>
+  <p>${escapeHtml(project.description)}</p>
+  
+  <div class="mb-2" style="font-size: 0.85rem;">
+    <strong>Professor:</strong> ${escapeHtml(project.professor)} | 
+    <strong>Período:</strong> ${escapeHtml(project.semester)}
+  </div>
 
-        <h3>${escapeHtml(project.title)}</h3>
-        <p>${escapeHtml(project.description)}</p>
-        <p><strong>Professor:</strong> ${escapeHtml(project.professor)}</p>
-        <p><strong>Período:</strong> ${escapeHtml(project.semester)}</p>
+  <div class="section-group">
+    <h4>Tecnologias</h4>
+    <div class="d-flex flex-wrap gap-2">${renderTags(project.technologies)}</div>
+  </div>
 
-        <div class="section-group">
-          <h4>Tecnologias</h4>
-          <div class="tags">${renderTags(project.technologies)}</div>
-        </div>
-
-        <div class="section-group">
-          <h4>Soft skills</h4>
-          <div class="tags">${renderTags(project.softSkills)}</div>
-        </div>
-
-        <div class="section-group">
-          <h4>Integrantes</h4>
-          <ul class="member-list">${renderTeamMembers(project.teamMembers)}</ul>
-        </div>
-
-        <div class="entry-buttons">
-          <button onclick="editProject('${project._id}')">Editar</button>
-          <button onclick="deleteProject('${project._id}')">Excluir</button>
-        </div>
-      </div>
+  <div class="entry-buttons">
+    <button onclick="editProject('${project._id}')">Editar</button>
+    <button onclick="deleteProject('${project._id}')">Excluir</button>
+  </div>
+</div>
     `).join('');
   } catch (error) {
     showMessage('Erro ao carregar projetos.');

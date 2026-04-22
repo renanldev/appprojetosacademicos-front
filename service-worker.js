@@ -1,12 +1,10 @@
-const CACHE_NAME = 'academic-projects-cache-v1';
-const APP_FILES = [
+const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/logoprojetosacad.png' 
 ];
 
 self.addEventListener('install', (event) => {
